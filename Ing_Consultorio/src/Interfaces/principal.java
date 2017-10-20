@@ -227,7 +227,7 @@ public class principal extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1CICliente1)
-                            .addComponent(jTextField_Nom_cli1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField_Nom_cli1)
                             .addComponent(jTextFieldDir_cli1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                             .addComponent(jTextFieldCorr_cli, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
                         .addGap(39, 39, 39)
@@ -669,7 +669,7 @@ public class principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu_Archivo);
 
-        jMenu2.setText("ver");
+        jMenu2.setText("Ver");
 
         jMenu1.setText("Reportes");
 

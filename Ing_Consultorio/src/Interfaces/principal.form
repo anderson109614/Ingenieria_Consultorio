@@ -100,7 +100,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jTextField1CICliente1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField_Nom_cli1" alignment="0" pref="-2147483648" max="32767" attributes="0"/>
+                                  <Component id="jTextField_Nom_cli1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jTextFieldDir_cli1" alignment="0" pref="170" max="32767" attributes="0"/>
                                   <Component id="jTextFieldCorr_cli" alignment="0" pref="170" max="32767" attributes="0"/>
                               </Group>
@@ -305,7 +305,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ver"/>
+            <Property name="text" type="java.lang.String" value="Ver"/>
           </Properties>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMenu1">
