@@ -875,8 +875,8 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton4NewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4NewUserActionPerformed
         // TODO add your handling code here:
-//        NewClient dialog = new NewClient(new javax.swing.JFrame(), true);
-//        dialog.setVisible(true);
+        NewClient dialog = new NewClient(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButton4NewUserActionPerformed
 
     float total = 0;
