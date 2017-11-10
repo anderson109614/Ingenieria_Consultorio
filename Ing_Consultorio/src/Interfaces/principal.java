@@ -598,6 +598,11 @@ public class principal extends javax.swing.JFrame {
         jTextFieldNumConsult.setEditable(false);
         jTextFieldNumConsult.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextFieldNumConsult.setEnabled(false);
+        jTextFieldNumConsult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNumConsultActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1206,6 +1211,10 @@ public boolean ValidarControlesIngreso(){
 //        ImprecionExamenes dialog = new ImprecionExamenes(new javax.swing.JFrame(), false);
 //         dialog.setVisible(true);
     }//GEN-LAST:event_FacturasActionPerformed
+
+    private void jTextFieldNumConsultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumConsultActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNumConsultActionPerformed
 
     private void limpiado_Bloqueo() {
         ////////////////////////////////77
