@@ -14,37 +14,42 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Conexion {
 
     static String URL = "jdbc:postgresql://localhost:5432/LABORATORIOCLINICO";
     static String DRIVER = "org.postgresql.Driver";
     static String USUARIO = "postgres";
-    static String CLAVE = "1803760154";
+    static String CLAVE = "1096anderson";
 
-//    public void abrirRepor(String nom) throws SQLException, JRException{
-//      Connection con;
-//        ResultSet res = null;
-//        try {
-//            Class.forName(DRIVER);
-//            
-//                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-//               
-//             String dir ="src\\reportes\\"+nom;
-//        try {
-//            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
-//            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,con);
-//            JasperViewer.viewReport(mostrarReporte,false);
-//        } catch (JRException ex) {
-//            JOptionPane.showMessageDialog(null, ex.getMessage());
-//        }
-//            
-//        } catch (ClassNotFoundException e) {
-//           JOptionPane.showMessageDialog(null,e.getMessage());
-//        }  
-//    }
-//    
+    public void abrirRepor(String nom) throws SQLException, JRException{
+      Connection con;
+        ResultSet res = null;
+        try {
+            Class.forName(DRIVER);
+            
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+               
+             String dir ="src\\reportes\\"+nom;
+        try {
+            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
+            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,con);
+            JasperViewer.viewReport(mostrarReporte,false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+            
+        } catch (ClassNotFoundException e) {
+           JOptionPane.showMessageDialog(null,e.getMessage());
+        }  
+    }
+    
    public ResultSet busquedaExamen(String nom) {
 
         Connection con;
@@ -497,29 +502,29 @@ public class Conexion {
     }
     
      
-//     public void abrirReporPar(String nom,String Cod) throws SQLException, JRException{
-//      Connection con;
-//        ResultSet res = null;
-//        try {
-//            Class.forName(DRIVER);
-//            
-//                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-//               
-//             String dir ="src\\reportes\\"+nom;
-//        try {
-//            Map parametros = new HashMap();
-//            parametros.put("CON",Cod);
-//            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
-//            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, parametros,con);
-//            JasperViewer.viewReport(mostrarReporte,false);
-//        } catch (JRException ex) {
-//            JOptionPane.showMessageDialog(null, ex.getMessage());
-//        }
-//            
-//        } catch (ClassNotFoundException e) {
-//           JOptionPane.showMessageDialog(null,e.getMessage());
-//        }  
-//    }
+     public void abrirReporPar(String nom,String Cod) throws SQLException, JRException{
+      Connection con;
+        ResultSet res = null;
+        try {
+            Class.forName(DRIVER);
+            
+                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+               
+             String dir ="src\\reportes\\"+nom;
+        try {
+            Map parametros = new HashMap();
+            parametros.put("CON",Cod);
+            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
+            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, parametros,con);
+            JasperViewer.viewReport(mostrarReporte,false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+            
+        } catch (ClassNotFoundException e) {
+           JOptionPane.showMessageDialog(null,e.getMessage());
+        }  
+    }
     
      public boolean insetarResultado(String cod,String res,String exa) {
         Connection con;

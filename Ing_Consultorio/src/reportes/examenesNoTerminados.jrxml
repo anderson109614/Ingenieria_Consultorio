@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd62e832-6cbd-4413-8d46-a7d8be704ebe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT E.TIP_EXA,COUNT(D.COD_CON),SUM(E.COS_EXA)
+FROM DETALLES D,EXAMENES E 
+WHERE D.COD_EXA=E.COD_EXA
+AND D.RES_EXA IS NULL
+GROUP BY E.TIP_EXA]]>
+	</queryString>
+	<field name="tip_exa" class="java.lang.String"/>
+	<field name="count" class="java.lang.Long"/>
+	<field name="sum" class="java.lang.Double"/>
+	<variable name="sum_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{sum}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="151" y="10" width="300" height="38" uuid="3d9b8030-9b21-4140-b471-09d113ace555"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LABORATORIO CLINICO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="194" y="48" width="223" height="20" uuid="a4a74774-cdf2-4a9c-861a-fa4cf9302c6a"/>
+				<text><![CDATA[CONTEO DE EXAMENES NO TERMINADOS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="40" y="0" width="88" height="79" uuid="81bb3545-3d38-4f52-bdcb-05074c12c5a1"/>
+				<imageExpression><![CDATA["C:\\Users\\Anderson\\Documents\\GIT\\Consultorio\\Sistema\\src\\img\\LOGO.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<rectangle>
+				<reportElement x="10" y="0" width="531" height="20" backcolor="#99FFFF" uuid="101304d2-a7d1-4a5f-b6dc-a32cc9731eb1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="330" y="0" width="100" height="20" uuid="79c6a340-3919-4b24-bee2-79eee592ec33"/>
+				<text><![CDATA[CONTEO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="0" width="100" height="20" uuid="ffadd758-8e9d-4faf-8405-373e408c8038"/>
+				<text><![CDATA[EXAMEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="e5cc07f4-df8d-4165-b075-2ee3d7175732"/>
+				<text><![CDATA[SUB TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="81" y="0" width="198" height="20" uuid="52e4a05a-9d82-4bb9-a58a-4de14ba2cb00"/>
+				<textFieldExpression><![CDATA[$F{tip_exa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="20" uuid="362468e5-1ffb-4483-abeb-68f3dd923c0e"/>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="40916d4f-b353-41de-a95a-05044faece72"/>
+				<textFieldExpression><![CDATA[$F{sum}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="430" y="11" width="100" height="20" uuid="00bc95d6-9531-4f94-8a23-d8e746bb2f55"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="709b4481-1edb-4386-8e3b-af7ac94e7a4d"/>
+				<textFieldExpression><![CDATA[$V{sum_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="394" y="0" width="61" height="20" uuid="543c24b1-8ba6-4c93-97ba-fb97675f3f42"/>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e2720d85-1518-4701-8415-50b29ae5606d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CON" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT CO.COD_CON,CO.FEC_CON,D.COD_EXA,E.TIP_EXA,E.COS_EXA,CO.CI_CLI,C.NOM_CLI,C.APE_CLI,C.DIR_CLI,CO.CI_LAB,L.NOM_LAB,L.APE_LAB
+FROM CONSULTAS CO,DETALLES D,EXAMENES E,CLIENTES C,LABORATORISTAS L
+WHERE CO.COD_CON =$P{CON}
+AND CO.COD_CON=D.COD_CON
+AND D.COD_EXA=E.COD_EXA
+AND CO.CI_CLI=C.CED_CLI
+AND CO.CI_LAB=L.CI_LAB]]>
+	</queryString>
+	<field name="cod_con" class="java.lang.String"/>
+	<field name="fec_con" class="java.sql.Date"/>
+	<field name="cod_exa" class="java.lang.String"/>
+	<field name="tip_exa" class="java.lang.String"/>
+	<field name="cos_exa" class="java.lang.Double"/>
+	<field name="ci_cli" class="java.lang.String"/>
+	<field name="nom_cli" class="java.lang.String"/>
+	<field name="ape_cli" class="java.lang.String"/>
+	<field name="dir_cli" class="java.lang.String"/>
+	<field name="ci_lab" class="java.lang.String"/>
+	<field name="nom_lab" class="java.lang.String"/>
+	<field name="ape_lab" class="java.lang.String"/>
+	<variable name="cos_exa_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{cos_exa}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="183" y="12" width="215" height="36" uuid="91fcf243-5c0c-4199-8828-32a1d5961559"/>
+				<textElement>
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSULTA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="184" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="10" width="555" height="174" forecolor="#FFFFFF" backcolor="#CCCCFF" uuid="236a05f9-dc1a-4ba9-a0da-16a8cbb56818"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="54" width="75" height="20" uuid="73ed2069-03d4-4ab0-b1ac-e0df0d2935e2"/>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="55" width="100" height="20" uuid="e519dd02-127b-495f-87d3-78622706f838"/>
+				<textFieldExpression><![CDATA[$F{nom_cli}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="35" width="75" height="20" uuid="34f03397-9d02-4b22-8646-f969ad34f680"/>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="445" y="35" width="100" height="20" uuid="fe85b242-cdb7-460c-b19d-a7cf5dcca85d"/>
+				<textFieldExpression><![CDATA[$F{fec_con}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="15" width="75" height="20" uuid="6cb5beda-9405-4fdc-8ad0-cabf6899d290"/>
+				<text><![CDATA[CONSULTA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="445" y="15" width="100" height="20" uuid="00604637-b08d-4f9f-90a7-132af58d95b8"/>
+				<textFieldExpression><![CDATA[$F{cod_con}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="75" width="100" height="20" uuid="e1499afd-7921-43c5-993d-5407953d323d"/>
+				<textFieldExpression><![CDATA[$F{ape_cli}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="75" width="75" height="20" uuid="b666fa8a-8e62-4417-a58f-fe4e8af51eb1"/>
+				<text><![CDATA[APELLIDO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="55" width="75" height="20" uuid="0805a649-4844-493b-9ab6-e6a54aacddc5"/>
+				<text><![CDATA[DIRECCION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="298" y="55" width="100" height="20" uuid="b1be1a3f-7ce4-4030-a467-59fb593510cb"/>
+				<textFieldExpression><![CDATA[$F{dir_cli}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="35" width="75" height="20" uuid="1db37d7e-f3b6-47f2-9cb7-2f1713fe1b87"/>
+				<text><![CDATA[CEDULA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="35" width="100" height="20" uuid="a38e7883-c211-41f2-b796-0ccfbc868130"/>
+				<textFieldExpression><![CDATA[$F{ci_cli}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="131" width="100" height="20" uuid="e82d3f4a-79d8-48d1-89ac-8fed2ce923db"/>
+				<textFieldExpression><![CDATA[$F{ci_lab}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="109" width="105" height="20" uuid="0a3356d3-f2dc-4f4f-913c-57b7173d9d41"/>
+				<text><![CDATA[LABORATORISTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="130" width="75" height="20" uuid="a939ac6f-f50e-4e65-a84c-0cdf7a4bd712"/>
+				<text><![CDATA[CEDULA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="154" width="75" height="20" uuid="d93712a1-2cce-4cf3-8957-905b5db300b3"/>
+				<text><![CDATA[APELLIDO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="150" width="75" height="20" uuid="8c20e9b5-ca1e-43e5-a32d-f74bb748983a"/>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="153" width="100" height="20" uuid="23f75711-1314-48fe-8e2c-18230c0e0f98"/>
+				<textFieldExpression><![CDATA[$F{nom_lab}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="154" width="100" height="20" uuid="b4128ef4-63c7-46e4-a80a-ebf373a59647"/>
+				<textFieldExpression><![CDATA[$F{ape_lab}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="102" width="555" height="1" forecolor="#FFFFFF" uuid="fb9ae135-37cb-4d09-b306-b9bf9bf37d6a"/>
+			</line>
+			<staticText>
+				<reportElement x="18" y="15" width="100" height="20" uuid="7c12f69b-b0d1-45bd-9002-effea056cfee"/>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="38" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="12" width="555" height="20" forecolor="#FFFFFF" backcolor="#99FF99" uuid="accb8969-d674-4ec1-a2a4-1ceab9196103"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="13" width="100" height="20" uuid="e5184bdf-edf0-4d92-b230-c3a0eb2f4b08"/>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="13" width="100" height="20" uuid="065f97df-cb09-4e5d-89b6-a7435abd0def"/>
+				<text><![CDATA[EXAMEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="13" width="100" height="20" uuid="a2390804-2381-4efa-b174-e1866d2d0947"/>
+				<text><![CDATA[COSTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="17" y="0" width="100" height="20" uuid="ae01a252-2b5b-4187-9663-fd1a001049e5"/>
+				<textFieldExpression><![CDATA[$F{cod_exa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="100" height="20" uuid="a799fb29-2626-4813-be93-9242210c5264"/>
+				<textFieldExpression><![CDATA[$F{tip_exa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="100" height="20" uuid="6d4eddaf-3e3a-4232-9794-d0305ae6e0a3"/>
+				<textFieldExpression><![CDATA[$F{cos_exa}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="86" y="5" width="1" height="15" uuid="2871ae1c-ac96-4cdb-9712-5645de455392"/>
+			</line>
+			<line>
+				<reportElement x="276" y="3" width="1" height="15" uuid="8c7cefdc-3634-4318-bab0-5de0534bd73a"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="299" y="0" width="100" height="20" uuid="8bd0b2ff-8c67-4fff-b7c9-911991f25c40"/>
+				<textFieldExpression><![CDATA[$V{cos_exa_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="236" y="0" width="62" height="20" uuid="9645adc0-b42b-4252-a764-c495c3fc69d5"/>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
