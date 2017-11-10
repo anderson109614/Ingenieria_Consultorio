@@ -5,7 +5,6 @@ package Interfaces;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Anderson
@@ -13,6 +12,9 @@ package Interfaces;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -28,29 +30,31 @@ public class Conexion {
     static String USUARIO = "postgres";
     static String CLAVE = "1096anderson";
 
-    public void abrirRepor(String nom) throws SQLException, JRException{
-      Connection con;
+    public void abrirRepor(String nom) throws SQLException, JRException {
+        Connection con;
         ResultSet res = null;
         try {
             Class.forName(DRIVER);
-            
-                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-               
-             String dir ="src\\reportes\\"+nom;
-        try {
-            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
-            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null,con);
-            JasperViewer.viewReport(mostrarReporte,false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-            
+
+            con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+
+            String dir = "src\\reportes\\" + nom;
+            try {
+                JasperReport reporteJasper = JasperCompileManager.compileReport(dir);
+                JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, null, con);
+                JasperViewer.viewReport(mostrarReporte, false);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
         } catch (ClassNotFoundException e) {
-           JOptionPane.showMessageDialog(null,e.getMessage());
-        }  
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
-    
-   public ResultSet busquedaExamen(String nom) {
+
+  
+
+    public ResultSet busquedaExamen(String nom) {
 
         Connection con;
         ResultSet res = null;
@@ -59,18 +63,19 @@ public class Conexion {
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
                 String sql = "SELECT E.COD_EXA,T.NOM_TIP,E.TIP_EXA,E.COS_EXA"
-                        + " FROM EXAMENES E ,TIPO_EXAMEN T WHERE T.COD_TIP=E.COD_TIP_EXA AND E.TIP_EXA LIKE '%" + nom+ "%'";
+                        + " FROM EXAMENES E ,TIPO_EXAMEN T WHERE T.COD_TIP=E.COD_TIP_EXA AND E.TIP_EXA LIKE '%" + nom + "%'";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
             } catch (Exception e) {
             }
         } catch (ClassNotFoundException e) {
-           JOptionPane.showMessageDialog(null,e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return res;
 
     }
+
     public ResultSet busquedLabo(String CI) {
 
         Connection con;
@@ -180,9 +185,8 @@ public class Conexion {
             }
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-           return false;
+            return false;
         }
-        
 
     }
 
@@ -213,7 +217,7 @@ public class Conexion {
         Connection con;
         ResultSet res = null;
         int fil = contExamenes();
-       // JOptionPane.showMessageDialog(null, String.valueOf(fil));
+        // JOptionPane.showMessageDialog(null, String.valueOf(fil));
         Object[][] data = new Object[fil][4];
         try {
             Class.forName(DRIVER);
@@ -221,12 +225,12 @@ public class Conexion {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
                 String sql = "SELECT E.COD_EXA,T.NOM_TIP,E.TIP_EXA,E.COS_EXA"
                         + " FROM EXAMENES E ,TIPO_EXAMEN T WHERE T.COD_TIP=E.COD_TIP_EXA";
-               PreparedStatement pstm = con.prepareStatement(sql);
+                PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
                 int i = 0;
-                while (res.next() && i<fil) {
-                    
+                while (res.next() && i < fil) {
+
                     data[i][0] = res.getString(1);
                     data[i][1] = res.getString(2);
                     data[i][2] = res.getString(3);
@@ -235,10 +239,10 @@ public class Conexion {
                 }
 
             } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } catch (ClassNotFoundException e) {
-            
+
         }
         return data;
 
@@ -270,6 +274,7 @@ public class Conexion {
         return i;
 
     }
+
     public int contConsltas() {
 
         Connection con;
@@ -296,8 +301,8 @@ public class Conexion {
         return i;
 
     }
-    
-    public boolean insertarConsulta(String[] datos,String[] exam) {
+
+    public boolean insertarConsulta(String[] datos, String[] exam) {
         Connection con;
 
         try {
@@ -308,13 +313,13 @@ public class Conexion {
                         + datos[2] + "'," + "current_timestamp" + ",null)";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.execute();
-                
+
                 int a = exam.length;
                 for (int i = 0; i < a; i++) {
                     String[] d = new String[2];
-                    d[0]=datos[0];
-                    d[1]=exam[i];
-                   insertarDetalleConsulta(d); 
+                    d[0] = datos[0];
+                    d[1] = exam[i];
+                    insertarDetalleConsulta(d);
                 }
 
             } catch (SQLException e) {
@@ -328,6 +333,7 @@ public class Conexion {
         return true;
 
     }
+
     public boolean insertarDetalleConsulta(String[] datos) {
         Connection con;
 
@@ -338,7 +344,6 @@ public class Conexion {
                 String sql = "INSERT INTO DETALLES VALUES ('" + datos[0] + "','" + datos[1] + "',null,null)";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.execute();
-                
 
             } catch (SQLException e) {
 
@@ -351,7 +356,7 @@ public class Conexion {
         return true;
 
     }
-    
+
     public ResultSet BusConsultasCli(String CICliente) {
 
         Connection con;
@@ -360,11 +365,11 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,CO.CI_LAB,CO.FEC_CON "+
-                              "FROM CLIENTES C,CONSULTAS CO "+
-                              "WHERE C.CED_CLI=CO.CI_CLI "+
-                              "AND CO.CI_CLI='"+CICliente+"'";
-                        
+                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,CO.CI_LAB,CO.FEC_CON "
+                        + "FROM CLIENTES C,CONSULTAS CO "
+                        + "WHERE C.CED_CLI=CO.CI_CLI "
+                        + "AND CO.CI_CLI='" + CICliente + "'";
+
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
@@ -376,7 +381,8 @@ public class Conexion {
         return res;
 
     }
-    public ResultSet BusExamenesNull(String CICliente,String CILab) {
+
+    public ResultSet BusExamenesNull(String CICliente, String CILab) {
 
         Connection con;
         ResultSet res = null;
@@ -384,16 +390,16 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,TE.NOM_TIP,E.TIP_EXA,D.RES_EXA,E.COD_EXA "+ 
-                             "FROM CLIENTES C, CONSULTAS CO,DETALLES D,EXAMENES E,TIPO_EXAMEN TE "+
-                             "WHERE CO.CI_CLI=C.CED_CLI "+
-                             "AND CO.CI_CLI='"+CICliente+"' "+
-                             "AND CO.CI_LAB='"+CILab+"' "+
-                             "AND CO.COD_CON=D.COD_CON "+
-                             "AND D.COD_EXA=E.COD_EXA "+
-                             "AND E.COD_TIP_EXA=TE.COD_TIP "+
-                             "AND D.RES_EXA IS NULL ";
-                        
+                String sql = "SELECT C.NOM_CLI,C.APE_CLI,CO.COD_CON,TE.NOM_TIP,E.TIP_EXA,D.RES_EXA,E.COD_EXA "
+                        + "FROM CLIENTES C, CONSULTAS CO,DETALLES D,EXAMENES E,TIPO_EXAMEN TE "
+                        + "WHERE CO.CI_CLI=C.CED_CLI "
+                        + "AND CO.CI_CLI='" + CICliente + "' "
+                        + "AND CO.CI_LAB='" + CILab + "' "
+                        + "AND CO.COD_CON=D.COD_CON "
+                        + "AND D.COD_EXA=E.COD_EXA "
+                        + "AND E.COD_TIP_EXA=TE.COD_TIP "
+                        + "AND D.RES_EXA IS NULL ";
+
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
@@ -405,7 +411,7 @@ public class Conexion {
         return res;
 
     }
-    
+
     public int contExamenesTOT(String codCon) {
 
         Connection con;
@@ -415,10 +421,10 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT COUNT(COD_EXA) "+
-                             "FROM DETALLES "+
-                             "WHERE COD_CON='"+codCon+"' "+
-                              "GROUP BY COD_CON";
+                String sql = "SELECT COUNT(COD_EXA) "
+                        + "FROM DETALLES "
+                        + "WHERE COD_CON='" + codCon + "' "
+                        + "GROUP BY COD_CON";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
@@ -436,8 +442,8 @@ public class Conexion {
         return i;
 
     }
-    
-     public int contExamenesTER(String codCon) {
+
+    public int contExamenesTER(String codCon) {
 
         Connection con;
         ResultSet res = null;
@@ -446,11 +452,11 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT COUNT(COD_EXA) "+
-                             "FROM DETALLES "+
-                             "WHERE COD_CON='"+codCon+"' "+
-                             "AND RES_EXA IS NOT NULL "+
-                              "GROUP BY COD_CON";
+                String sql = "SELECT COUNT(COD_EXA) "
+                        + "FROM DETALLES "
+                        + "WHERE COD_CON='" + codCon + "' "
+                        + "AND RES_EXA IS NOT NULL "
+                        + "GROUP BY COD_CON";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
@@ -468,8 +474,8 @@ public class Conexion {
         return i;
 
     }
-    
-     public double totalCOn(String codCon) {
+
+    public double totalCOn(String codCon) {
 
         Connection con;
         ResultSet res = null;
@@ -478,11 +484,11 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT SUM(E.COS_EXA) "+
-                             "FROM DETALLES D,EXAMENES E "+
-                             "WHERE COD_CON='"+codCon+"' "+
-                             "AND D.COD_EXA=E.COD_EXA "+
-                             "GROUP BY COD_CON ";
+                String sql = "SELECT SUM(E.COS_EXA) "
+                        + "FROM DETALLES D,EXAMENES E "
+                        + "WHERE COD_CON='" + codCon + "' "
+                        + "AND D.COD_EXA=E.COD_EXA "
+                        + "GROUP BY COD_CON ";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
@@ -500,42 +506,41 @@ public class Conexion {
         return i;
 
     }
-    
-     
-     public void abrirReporPar(String nom,String Cod) throws SQLException, JRException{
-      Connection con;
+
+    public void abrirReporPar(String nom, String Cod) throws SQLException, JRException {
+        Connection con;
         ResultSet res = null;
         try {
             Class.forName(DRIVER);
-            
-                con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-               
-             String dir ="src\\reportes\\"+nom;
-        try {
-            Map parametros = new HashMap();
-            parametros.put("CON",Cod);
-            JasperReport reporteJasper= JasperCompileManager.compileReport(dir);
-            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, parametros,con);
-            JasperViewer.viewReport(mostrarReporte,false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-            
+
+            con = DriverManager.getConnection(URL, USUARIO, CLAVE);
+
+            String dir = "src\\reportes\\" + nom;
+            try {
+                Map parametros = new HashMap();
+                parametros.put("CON", Cod);
+                JasperReport reporteJasper = JasperCompileManager.compileReport(dir);
+                JasperPrint mostrarReporte = JasperFillManager.fillReport(reporteJasper, parametros, con);
+                JasperViewer.viewReport(mostrarReporte, false);
+            } catch (JRException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
         } catch (ClassNotFoundException e) {
-           JOptionPane.showMessageDialog(null,e.getMessage());
-        }  
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
-    
-     public boolean insetarResultado(String cod,String res,String exa) {
+
+    public boolean insetarResultado(String cod, String res, String exa) {
         Connection con;
 
         try {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "UPDATE DETALLES SET RES_EXA='" + res + "',FEC_RES=NOW() "+
-                         "WHERE COD_CON='" + cod + "'"
-                        + "AND COD_EXA='"+exa+"';";
+                String sql = "UPDATE DETALLES SET RES_EXA='" + res + "',FEC_RES=NOW() "
+                        + "WHERE COD_CON='" + cod + "'"
+                        + "AND COD_EXA='" + exa + "';";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.execute();
                 return true;
@@ -547,13 +552,12 @@ public class Conexion {
             }
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
-           return false;
+            return false;
         }
-        
 
     }
-    
-     public int contExamenesTOT() {
+
+    public int contExamenesTOT() {
 
         Connection con;
         ResultSet res = null;
@@ -562,9 +566,9 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT COUNT(COD_EXA) "+
-                             "FROM EXAMENES ";
-                             
+                String sql = "SELECT COUNT(COD_EXA) "
+                        + "FROM EXAMENES ";
+
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
@@ -582,7 +586,8 @@ public class Conexion {
         return i;
 
     }
-     public String codigoTipoExa(String nomTip) {
+
+    public String codigoTipoExa(String nomTip) {
 
         Connection con;
         ResultSet res = null;
@@ -591,10 +596,10 @@ public class Conexion {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "SELECT COD_TIP "+
-                             "FROM TIPO_EXAMEN"
-                        + "WHERE NOM_TIP='"+nomTip+"' ";
-                             
+                String sql = "SELECT COD_TIP "
+                        + "FROM TIPO_EXAMEN"
+                        + "WHERE NOM_TIP='" + nomTip + "' ";
+
                 PreparedStatement pstm = con.prepareStatement(sql);
                 res = pstm.executeQuery();
 
@@ -612,34 +617,32 @@ public class Conexion {
         return i;
 
     }
-     
-      public boolean insertarExamen(String[] datos) {
+
+    public boolean insertarExamen(String[] datos) {
         Connection con;
 
         try {
             Class.forName(DRIVER);
             try {
                 con = DriverManager.getConnection(URL, USUARIO, CLAVE);
-                String sql = "INSERT INTO EXAMENES VALUES ('" + datos[0] + "','" + datos[1] +"','"+datos[2] +"','"+datos[3] +"') "; 
+                String sql = "INSERT INTO EXAMENES VALUES ('" + datos[0] + "','" + datos[1] + "','" + datos[2] + "','" + datos[3] + "') ";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.execute();
-                
+
                 return true;
             } catch (SQLException e) {
 
                 JOptionPane.showMessageDialog(null, e.getMessage());
-               return false;
+                return false;
             }
         } catch (ClassNotFoundException e) {
-          JOptionPane.showMessageDialog(null, e.getMessage());
-          return false;
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return false;
         }
-        
 
     }
 
-      
-      public boolean insertarLab(String[] datos) {
+    public boolean insertarLab(String[] datos) {
         Connection con;
 
         try {
@@ -650,17 +653,16 @@ public class Conexion {
                         + "','" + datos[4] + "')";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.execute();
-return true;
+                return true;
             } catch (SQLException e) {
 
                 JOptionPane.showMessageDialog(null, e.getMessage());
-                    return false;
+                return false;
             }
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return false;
         }
-        
 
     }
 }
